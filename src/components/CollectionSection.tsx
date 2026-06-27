@@ -74,6 +74,16 @@ const fragrances = [
     gradient: "radial-gradient(ellipse at 30% 50%, rgba(160,201,168,0.12) 0%, transparent 70%)",
     bottle: "/bottle-11.png",
   },
+  {
+    id: 108,
+    name: "BelleEclat #108",
+    note: "ежевика · грейпфрут · кедр",
+    desc: "Сочная ежевика и свежий грейпфрут в начале, тёплый кедр в финале. Дерзкий и притягательный аромат.",
+    price: "3 500 ₽",
+    volume: "30 мл",
+    gradient: "radial-gradient(ellipse at 40% 40%, rgba(80,40,100,0.18) 0%, transparent 70%)",
+    bottle: "/bottle-108.jpg",
+  },
 ];
 
 function FragranceCard({
