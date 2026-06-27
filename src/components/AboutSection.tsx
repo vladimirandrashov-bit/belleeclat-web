@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function AboutSection() {
+  const isMobile = useIsMobile();
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +36,7 @@ export default function AboutSection() {
     <section
       id="about"
       style={{
-        padding: "120px 48px",
+        padding: isMobile ? "80px 20px" : "120px 48px",
         borderTop: "1px solid rgba(201,168,76,0.08)",
         background: "linear-gradient(to bottom, #0a0a0a, #0d0b07)",
       }}
@@ -44,8 +46,8 @@ export default function AboutSection() {
           maxWidth: "1100px",
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "80px",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+          gap: isMobile ? "48px" : "80px",
           alignItems: "center",
         }}
       >
@@ -149,16 +151,16 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* Right — decorative */}
+        {/* Right — decorative (hidden on mobile) */}
         <div
           ref={rightRef}
           style={{
             position: "relative",
             height: "480px",
+            display: isMobile ? "none" : "flex",
             border: "1px solid rgba(201,168,76,0.12)",
             background:
               "radial-gradient(ellipse at 40% 50%, rgba(201,168,76,0.08) 0%, transparent 70%)",
-            display: "flex",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -242,13 +244,6 @@ export default function AboutSection() {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          section > div {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

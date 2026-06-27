@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const fragrances = [
   {
@@ -78,9 +79,11 @@ const fragrances = [
 function FragranceCard({
   frag,
   index,
+  isMobile,
 }: {
   frag: (typeof fragrances)[0];
   index: number;
+  isMobile: boolean;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -114,7 +117,7 @@ function FragranceCard({
       style={{
         position: "relative",
         border: "1px solid rgba(201,168,76,0.15)",
-        padding: "48px 36px",
+        padding: isMobile ? "32px 20px" : "48px 36px",
         background: `#0e0e0e`,
         cursor: "default",
         transition: "border-color 0.4s ease, transform 0.4s ease",
@@ -144,7 +147,7 @@ function FragranceCard({
       {/* Bottle image */}
       <div
         style={{
-          height: "340px",
+          height: isMobile ? "200px" : "340px",
           margin: "0 auto 32px",
           display: "flex",
           alignItems: "center",
@@ -157,6 +160,8 @@ function FragranceCard({
           src={frag.bottle}
           alt=""
           aria-hidden="true"
+          loading="lazy"
+          decoding="async"
           style={{
             height: "100%",
             width: "auto",
@@ -242,6 +247,7 @@ function FragranceCard({
 }
 
 export default function CollectionSection() {
+  const isMobile = useIsMobile();
   const headingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -268,7 +274,7 @@ export default function CollectionSection() {
     <section
       id="collection"
       style={{
-        padding: "120px 48px",
+        padding: isMobile ? "80px 16px" : "120px 48px",
         maxWidth: "1200px",
         margin: "0 auto",
       }}
@@ -314,7 +320,7 @@ export default function CollectionSection() {
         }}
       >
         {fragrances.map((frag, i) => (
-          <FragranceCard key={frag.id} frag={frag} index={i} />
+          <FragranceCard key={frag.id} frag={frag} index={i} isMobile={isMobile} />
         ))}
       </div>
 

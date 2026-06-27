@@ -2,26 +2,34 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const ParticleCanvas = dynamic(() => import("./ParticleCanvas"), { ssr: false });
 const FloatingWords = dynamic(() => import("./FloatingWords"), { ssr: false });
 
 export default function HeroSection() {
+  const isMobile = useIsMobile();
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Staggered entrance animation
+    // On mobile: instant appearance for LCP; on desktop: staggered animation
+    const isMob = window.innerWidth < 768;
     const elements = [
-      { el: lineRef.current, delay: 300 },
-      { el: subtitleRef.current, delay: 600 },
-      { el: titleRef.current, delay: 800 },
-      { el: ctaRef.current, delay: 1400 },
+      { el: lineRef.current, delay: isMob ? 0 : 300 },
+      { el: subtitleRef.current, delay: isMob ? 0 : 600 },
+      { el: titleRef.current, delay: isMob ? 0 : 800 },
+      { el: ctaRef.current, delay: isMob ? 0 : 1400 },
     ];
     elements.forEach(({ el, delay }) => {
       if (!el) return;
+      if (isMob) {
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+        return;
+      }
       el.style.opacity = "0";
       el.style.transform = "translateY(24px)";
       setTimeout(() => {
@@ -46,11 +54,19 @@ export default function HeroSection() {
         background: "radial-gradient(ellipse at 50% 60%, #1a1206 0%, #0a0a0a 70%)",
       }}
     >
-      {/* Three.js particles */}
-      <ParticleCanvas />
+      {/* Three.js particles — only on desktop */}
+      {!isMobile && <ParticleCanvas />}
+
+      {/* CSS fallback shimmer for mobile */}
+      {isMobile && (
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
+          background: "radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.12) 0%, transparent 60%)",
+        }} />
+      )}
 
       {/* Floating emotion words */}
-      <FloatingWords />
+      {!isMobile && <FloatingWords />}
 
       {/* Radial vignette */}
       <div
@@ -70,8 +86,9 @@ export default function HeroSection() {
           position: "relative",
           zIndex: 2,
           textAlign: "center",
-          padding: "0 24px",
+          padding: isMobile ? "0 20px" : "0 24px",
           maxWidth: "900px",
+          width: "100%",
         }}
       >
         {/* Top line */}
@@ -149,12 +166,12 @@ export default function HeroSection() {
         </p>
 
         {/* CTA */}
-        <div ref={ctaRef} style={{ display: "flex", gap: "20px", justifyContent: "center", flexWrap: "wrap" }}>
+        <div ref={ctaRef} style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
           <a
             href="#collection"
             style={{
               display: "inline-block",
-              padding: "14px 44px",
+              padding: isMobile ? "14px 32px" : "14px 44px",
               border: "1px solid var(--gold)",
               color: "var(--gold)",
               fontFamily: "var(--font-body), sans-serif",
@@ -181,7 +198,7 @@ export default function HeroSection() {
             href="#contact"
             style={{
               display: "inline-block",
-              padding: "14px 44px",
+              padding: isMobile ? "14px 32px" : "14px 44px",
               border: "1px solid rgba(245,240,232,0.2)",
               color: "var(--text-muted)",
               fontFamily: "var(--font-body), sans-serif",
