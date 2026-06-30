@@ -489,7 +489,7 @@ export default function OptPage() {
         </p>
         <div style={{ display: "flex", gap: "24px", marginBottom: "40px", flexWrap: "wrap" }}>
           <a
-            href="https://t.me/+79953760666"
+            href="tg://user?id=5791643302"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -542,7 +542,7 @@ export default function OptPage() {
           <a href="mailto:info@belleeclat.ru" style={{ color: "var(--gold)", textDecoration: "none" }}>
             info@belleeclat.ru
           </a>{" "}·{" "}
-          <a href="https://t.me/+79953760666" target="_blank" rel="noopener noreferrer" style={{ color: "var(--gold)", textDecoration: "none" }}>
+          <a href="tg://user?id=5791643302" style={{ color: "var(--gold)", textDecoration: "none" }}>
             Telegram
           </a>
         </div>
