@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const VIEWS = [
   "/parts/view-front.png",
@@ -11,65 +11,64 @@ const VIEWS = [
   "/parts/view-45.png",
 ];
 
-// Длительность цикла и доля одного кадра
-const CYCLE = 4; // секунд
-const FRAME = 100 / VIEWS.length; // 16.67%
-const FADE  = FRAME * 0.22;       // ~3.67% — время crossfade
-
 const AROMAS = [
-  { num: "№ 101", name: "Cherry Desire",  hint: "Тёмная сторона сладкого",    notes: "вишня · амбра · ваниль"    },
-  { num: "№ 112", name: "Sweet Tobacco",  hint: "Запрещённое удовольствие",   notes: "табак · ваниль · сандал"   },
-  { num: "№ 13",  name: "Bright Devila",  hint: "Яркость с характером",       notes: "цитрус · жасмин · пачули"  },
-  { num: "№ 4",   name: "Sexy Magic",     hint: "Необъяснимое притяжение",    notes: "роза · мускус · кедр"      },
+  { num: "№ 101", name: "Cherry Desire", hint: "Тёмная сторона сладкого",  notes: "вишня · амбра · ваниль"   },
+  { num: "№ 112", name: "Sweet Tobacco", hint: "Запрещённое удовольствие", notes: "табак · ваниль · сандал"  },
+  { num: "№ 13",  name: "Bright Devila", hint: "Яркость с характером",     notes: "цитрус · жасмин · пачули" },
+  { num: "№ 4",   name: "Sexy Magic",    hint: "Необъяснимое притяжение",  notes: "роза · мускус · кедр"     },
 ];
 
-const bottleKeyframes = `
-@keyframes bottle-frame {
-  0%                      { opacity: 0; }
-  ${FADE.toFixed(2)}%     { opacity: 1; }
-  ${(FRAME - FADE).toFixed(2)}% { opacity: 1; }
-  ${FRAME.toFixed(2)}%    { opacity: 0; }
-  100%                    { opacity: 0; }
-}
-`;
-
+// Двойной буфер: всегда только 2 изображения в DOM,
+// плавный crossfade через CSS transition.
 function SpinningBottle() {
+  const [srcs, setSrcs]   = useState([VIEWS[0], VIEWS[1]]);
+  const [front, setFront] = useState(0); // 0 или 1 — какой img сверху
+  const cursor = useRef(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      cursor.current = (cursor.current + 1) % VIEWS.length;
+      const nextSrc = VIEWS[cursor.current];
+      setFront((f) => {
+        const back = 1 - f;
+        setSrcs((prev) => {
+          const copy = [...prev] as [string, string];
+          copy[back] = nextSrc;
+          return copy;
+        });
+        return back;
+      });
+    }, 1400);
+    return () => clearInterval(id);
+  }, []);
+
+  const base: React.CSSProperties = {
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "contain",
+    filter: "blur(5px) brightness(0.38) sepia(0.25)",
+    transition: "opacity 1s ease-in-out",
+  };
+
   return (
-    <>
-      <style>{bottleKeyframes}</style>
-      <div style={{ position: "relative", width: "90px", height: "130px", margin: "0 auto 24px" }}>
-        {VIEWS.map((src, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={src + i}
-            src={src}
-            alt=""
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              filter: "blur(4px) brightness(0.45) sepia(0.3)",
-              opacity: 0,
-              animation: `bottle-frame ${CYCLE}s ${(i * CYCLE / VIEWS.length).toFixed(2)}s infinite`,
-            }}
-          />
-        ))}
-        {/* Оверлей с замком */}
-        <div style={{
-          position: "absolute",
+    <div style={{ position: "relative", width: "90px", height: "130px", margin: "0 auto 24px" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={srcs[0]} alt="" style={{ ...base, opacity: front === 0 ? 1 : 0 }} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={srcs[1]} alt="" style={{ ...base, opacity: front === 1 ? 1 : 0 }} />
+      <div style={{
+        position: "absolute",
         inset: 0,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         color: "rgba(201,168,76,0.4)",
         fontSize: "1.3rem",
-      }}>
-        ◈
-        </div>
-      </div>
-    </>
+        pointerEvents: "none",
+      }}>◈</div>
+    </div>
   );
 }
 
@@ -103,9 +102,7 @@ export default function ExclusivePage() {
           letterSpacing: "0.35em",
           color: "rgba(201,168,76,0.4)",
           textTransform: "uppercase",
-        }}>
-          Закрытая коллекция
-        </span>
+        }}>Закрытая коллекция</span>
       </header>
 
       {/* HERO */}
@@ -125,9 +122,7 @@ export default function ExclusivePage() {
           letterSpacing: "0.4em",
           color: "var(--gold)",
           textTransform: "uppercase",
-        }}>
-          Ограниченный доступ
-        </div>
+        }}>Ограниченный доступ</div>
 
         <h1 style={{
           fontFamily: "var(--font-display), serif",
@@ -185,21 +180,15 @@ export default function ExclusivePage() {
             position: "relative",
             overflow: "hidden",
           }}>
-            {/* Угловой акцент */}
             <div style={{
-              position: "absolute",
-              top: 0,
-              right: 0,
-              width: "40px",
-              height: "40px",
+              position: "absolute", top: 0, right: 0,
+              width: "40px", height: "40px",
               borderBottom: "1px solid rgba(201,168,76,0.2)",
               borderLeft: "1px solid rgba(201,168,76,0.2)",
             }} />
 
-            {/* Вращающийся размытый флакон */}
             <SpinningBottle />
 
-            {/* Номер */}
             <div style={{
               fontFamily: "var(--font-body), sans-serif",
               fontSize: "0.55rem",
@@ -208,11 +197,8 @@ export default function ExclusivePage() {
               textTransform: "uppercase",
               marginBottom: "8px",
               textAlign: "center",
-            }}>
-              {a.num}
-            </div>
+            }}>{a.num}</div>
 
-            {/* Название */}
             <h3 style={{
               fontFamily: "var(--font-display), serif",
               fontSize: "1.35rem",
@@ -221,11 +207,8 @@ export default function ExclusivePage() {
               textAlign: "center",
               marginBottom: "10px",
               letterSpacing: "0.03em",
-            }}>
-              {a.name}
-            </h3>
+            }}>{a.name}</h3>
 
-            {/* Подсказка */}
             <p style={{
               fontFamily: "var(--font-body), sans-serif",
               fontSize: "0.7rem",
@@ -234,11 +217,8 @@ export default function ExclusivePage() {
               marginBottom: "18px",
               fontStyle: "italic",
               letterSpacing: "0.05em",
-            }}>
-              {a.hint}
-            </p>
+            }}>{a.hint}</p>
 
-            {/* Ноты — размыты */}
             <div style={{
               fontFamily: "var(--font-body), sans-serif",
               fontSize: "0.65rem",
@@ -247,11 +227,8 @@ export default function ExclusivePage() {
               letterSpacing: "0.08em",
               filter: "blur(3.5px)",
               userSelect: "none",
-            }}>
-              {a.notes}
-            </div>
+            }}>{a.notes}</div>
 
-            {/* Плашка */}
             <div style={{
               marginTop: "22px",
               borderTop: "1px solid rgba(201,168,76,0.1)",
@@ -262,9 +239,7 @@ export default function ExclusivePage() {
               letterSpacing: "0.3em",
               color: "rgba(201,168,76,0.3)",
               textTransform: "uppercase",
-            }}>
-              Недоступно
-            </div>
+            }}>Недоступно</div>
           </div>
         ))}
       </section>
@@ -290,9 +265,7 @@ export default function ExclusivePage() {
           color: "var(--text)",
           marginBottom: "16px",
           lineHeight: 1.4,
-        }}>
-          Когда появятся — вы узнаете первыми.
-        </p>
+        }}>Когда появятся — вы узнаете первыми.</p>
 
         <p style={{
           fontFamily: "var(--font-body), sans-serif",
@@ -301,8 +274,7 @@ export default function ExclusivePage() {
           lineHeight: 1.8,
           marginBottom: "40px",
         }}>
-          Мы сообщим о запуске только тем,<br />
-          кто уже ждёт.
+          Мы сообщим о запуске только тем,<br />кто уже ждёт.
         </p>
 
         <a
@@ -324,9 +296,7 @@ export default function ExclusivePage() {
             textDecoration: "none",
             transition: "background 0.2s, color 0.2s",
           }}
-        >
-          Хочу узнать первым
-        </a>
+        >Хочу узнать первым</a>
       </section>
 
     </main>
