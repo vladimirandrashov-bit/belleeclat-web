@@ -1,39 +1,64 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Закрытая коллекция — BelleEclat",
-  description: "Четыре аромата. Не для всех.",
-  robots: "noindex, nofollow",
-};
+import { useEffect, useState } from "react";
 
-const AROMAS = [
-  {
-    num: "№ 101",
-    name: "Cherry Desire",
-    hint: "Тёмная сторона сладкого",
-    notes: "вишня · амбра · ваниль",
-  },
-  {
-    num: "№ 112",
-    name: "Sweet Tobacco",
-    hint: "Запрещённое удовольствие",
-    notes: "табак · ваниль · сандал",
-  },
-  {
-    num: "№ 13",
-    name: "Bright Devila",
-    hint: "Яркость с характером",
-    notes: "цитрус · жасмин · пачули",
-  },
-  {
-    num: "№ 4",
-    name: "Sexy Magic",
-    hint: "Необъяснимое притяжение",
-    notes: "роза · мускус · кедр",
-  },
+const VIEWS = [
+  "/parts/view-front.png",
+  "/parts/view-45.png",
+  "/parts/view-side.png",
+  "/parts/view-back.png",
+  "/parts/view-side.png",
+  "/parts/view-45.png",
 ];
 
+const AROMAS = [
+  { num: "№ 101", name: "Cherry Desire",  hint: "Тёмная сторона сладкого",    notes: "вишня · амбра · ваниль"    },
+  { num: "№ 112", name: "Sweet Tobacco",  hint: "Запрещённое удовольствие",   notes: "табак · ваниль · сандал"   },
+  { num: "№ 13",  name: "Bright Devila",  hint: "Яркость с характером",       notes: "цитрус · жасмин · пачули"  },
+  { num: "№ 4",   name: "Sexy Magic",     hint: "Необъяснимое притяжение",    notes: "роза · мускус · кедр"      },
+];
+
+function SpinningBottle() {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % VIEWS.length), 500);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div style={{ position: "relative", width: "90px", height: "130px", margin: "0 auto 24px" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={VIEWS[idx]}
+        alt=""
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          filter: "blur(4px) brightness(0.45) sepia(0.3)",
+          transition: "opacity 0.3s",
+        }}
+      />
+      {/* Оверлей с замком */}
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "rgba(201,168,76,0.4)",
+        fontSize: "1.3rem",
+      }}>
+        ◈
+      </div>
+    </div>
+  );
+}
+
 export default function ExclusivePage() {
+  const [btnHover, setBtnHover] = useState(false);
+
   return (
     <main style={{ background: "var(--bg)", minHeight: "100vh", color: "var(--text)", overflow: "hidden" }}>
 
@@ -73,7 +98,6 @@ export default function ExclusivePage() {
         padding: "100px 24px 60px",
         textAlign: "center",
       }}>
-        {/* Метка */}
         <div style={{
           display: "inline-block",
           border: "1px solid rgba(201,168,76,0.3)",
@@ -140,7 +164,7 @@ export default function ExclusivePage() {
           <div key={a.num} style={{
             border: "1px solid rgba(201,168,76,0.15)",
             background: "rgba(201,168,76,0.03)",
-            padding: "36px 24px 30px",
+            padding: "32px 24px 28px",
             position: "relative",
             overflow: "hidden",
           }}>
@@ -155,21 +179,8 @@ export default function ExclusivePage() {
               borderLeft: "1px solid rgba(201,168,76,0.2)",
             }} />
 
-            {/* Замок */}
-            <div style={{
-              width: "48px",
-              height: "60px",
-              margin: "0 auto 28px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              border: "1px solid rgba(201,168,76,0.2)",
-              color: "rgba(201,168,76,0.35)",
-              fontSize: "1.4rem",
-              letterSpacing: 0,
-            }}>
-              ◈
-            </div>
+            {/* Вращающийся размытый флакон */}
+            <SpinningBottle />
 
             {/* Номер */}
             <div style={{
@@ -223,7 +234,7 @@ export default function ExclusivePage() {
               {a.notes}
             </div>
 
-            {/* Плашка "скрыто" */}
+            {/* Плашка */}
             <div style={{
               marginTop: "22px",
               borderTop: "1px solid rgba(201,168,76,0.1)",
@@ -281,10 +292,13 @@ export default function ExclusivePage() {
           href="https://t.me/belleeclat_official"
           target="_blank"
           rel="noopener noreferrer"
+          onMouseEnter={() => setBtnHover(true)}
+          onMouseLeave={() => setBtnHover(false)}
           style={{
             display: "inline-block",
             border: "1px solid var(--gold)",
-            color: "var(--gold)",
+            color: btnHover ? "#0a0a0a" : "var(--gold)",
+            background: btnHover ? "var(--gold)" : "transparent",
             padding: "14px 40px",
             fontFamily: "var(--font-body), sans-serif",
             fontSize: "0.65rem",
@@ -292,14 +306,6 @@ export default function ExclusivePage() {
             textTransform: "uppercase",
             textDecoration: "none",
             transition: "background 0.2s, color 0.2s",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "var(--gold)";
-            (e.currentTarget as HTMLAnchorElement).style.color = "#0a0a0a";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-            (e.currentTarget as HTMLAnchorElement).style.color = "var(--gold)";
           }}
         >
           Хочу узнать первым
