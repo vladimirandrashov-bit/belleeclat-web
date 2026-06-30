@@ -90,6 +90,32 @@ export default function Navbar() {
                 {label}
               </a>
             ))}
+            <a
+              href="/opt"
+              style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "0.68rem",
+                letterSpacing: "0.22em",
+                color: "var(--gold)",
+                textDecoration: "none",
+                textTransform: "uppercase",
+                border: "1px solid rgba(201,168,76,0.4)",
+                padding: "8px 18px",
+                transition: "background 0.25s, color 0.25s",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "var(--gold)";
+                el.style.color = "#0a0a0a";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "transparent";
+                el.style.color = "var(--gold)";
+              }}
+            >
+              Партнёрам
+            </a>
           </div>
         )}
 
@@ -164,7 +190,7 @@ export default function Navbar() {
                 textDecoration: "none",
                 textTransform: "uppercase",
                 padding: "18px 24px",
-                borderBottom: i < NAV_LINKS.length - 1 ? "1px solid rgba(201,168,76,0.08)" : "none",
+                borderBottom: "1px solid rgba(201,168,76,0.08)",
                 WebkitTapHighlightColor: "transparent",
               }}
               onTouchStart={(e) => {
@@ -179,6 +205,23 @@ export default function Navbar() {
               {label}
             </a>
           ))}
+          <a
+            href="/opt"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              display: "block",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "0.8rem",
+              letterSpacing: "0.28em",
+              color: "var(--gold)",
+              textDecoration: "none",
+              textTransform: "uppercase",
+              padding: "18px 24px",
+              WebkitTapHighlightColor: "transparent",
+            }}
+          >
+            Партнёрам
+          </a>
         </div>
       )}
     </>
