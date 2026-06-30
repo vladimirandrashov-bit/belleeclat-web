@@ -232,6 +232,160 @@ export default function OptPage() {
         </div>
       </section>
 
+      {/* ПРОГРАММА ПАРТНЁРСТВА */}
+      <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "60px 24px" }}>
+        <Label>Программа партнёрства</Label>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: "2px",
+          marginTop: "32px",
+        }}>
+          {/* Стандарт */}
+          <div style={{
+            background: "#0f0f0f",
+            border: "1px solid rgba(201,168,76,0.15)",
+            padding: "32px 28px",
+          }}>
+            <div style={{
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "0.6rem",
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "var(--text-muted)",
+              marginBottom: "16px",
+            }}>
+              Партнёр
+            </div>
+            <div style={{
+              fontFamily: "var(--font-display), serif",
+              fontSize: "1.6rem",
+              color: "var(--text)",
+              marginBottom: "20px",
+            }}>
+              от 30 флаконов
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {[
+                "1 500 ₽/шт — от 30 шт",
+                "1 200 ₽/шт — от 100 шт",
+                "Без территориального ограничения",
+              ].map((line) => (
+                <div key={line} style={{
+                  fontFamily: "var(--font-body), sans-serif",
+                  fontSize: "0.85rem",
+                  color: "var(--text-muted)",
+                  display: "flex",
+                  gap: "10px",
+                  alignItems: "flex-start",
+                }}>
+                  <span style={{ color: "var(--gold)", flexShrink: 0 }}>—</span>
+                  {line}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Эксклюзив */}
+          <div style={{
+            background: "#0f0f0f",
+            border: "1px solid rgba(201,168,76,0.45)",
+            padding: "32px 28px",
+            position: "relative",
+          }}>
+            <div style={{
+              position: "absolute",
+              top: "-1px",
+              left: "28px",
+              right: "28px",
+              height: "2px",
+              background: "linear-gradient(90deg, transparent, var(--gold), transparent)",
+            }} />
+            <div style={{
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "0.6rem",
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              marginBottom: "16px",
+            }}>
+              Эксклюзивный партнёр
+            </div>
+            <div style={{
+              fontFamily: "var(--font-display), serif",
+              fontSize: "1.6rem",
+              color: "var(--text)",
+              marginBottom: "20px",
+            }}>
+              от 3 000 флаконов / квартал
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {[
+                "Специальная закупочная цена",
+                "Территориальный эксклюзив по городу / региону",
+                "Приоритет в поставках и маркетинговая поддержка",
+              ].map((line) => (
+                <div key={line} style={{
+                  fontFamily: "var(--font-body), sans-serif",
+                  fontSize: "0.85rem",
+                  color: "var(--text-muted)",
+                  display: "flex",
+                  gap: "10px",
+                  alignItems: "flex-start",
+                }}>
+                  <span style={{ color: "var(--gold)", flexShrink: 0 }}>—</span>
+                  {line}
+                </div>
+              ))}
+            </div>
+            <div style={{
+              marginTop: "20px",
+              paddingTop: "16px",
+              borderTop: "1px solid rgba(201,168,76,0.15)",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "0.78rem",
+              color: "var(--text-muted)",
+            }}>
+              Условия эксклюзива обсуждаются индивидуально
+            </div>
+          </div>
+        </div>
+
+        {/* Ключевые условия */}
+        <div style={{
+          marginTop: "24px",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "2px",
+        }}>
+          {[
+            { icon: "◆", text: "Продажа только конечному покупателю — субдистрибуция запрещена" },
+            { icon: "◆", text: "РРЦ 3 500 ₽ · демпинг запрещён договором с штрафом" },
+            { icon: "◆", text: "Только под брендом BelleEclat · перемаркировка запрещена" },
+            { icon: "◆", text: "Продажа на маркетплейсах запрещена" },
+          ].map(({ icon, text }) => (
+            <div key={text} style={{
+              background: "rgba(201,168,76,0.03)",
+              border: "1px solid rgba(201,168,76,0.1)",
+              padding: "16px 18px",
+              display: "flex",
+              gap: "12px",
+              alignItems: "flex-start",
+            }}>
+              <span style={{ color: "var(--gold)", fontSize: "0.55rem", flexShrink: 0, marginTop: "3px" }}>{icon}</span>
+              <span style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "0.8rem",
+                color: "var(--text-muted)",
+                lineHeight: 1.6,
+              }}>
+                {text}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ПРЕИМУЩЕСТВА */}
       <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "60px 24px" }}>
         <Label>Почему BelleEclat</Label>
