@@ -483,10 +483,46 @@ export default function OptPage() {
           color: "var(--text-muted)",
           lineHeight: 1.8,
           marginTop: "16px",
-          marginBottom: "40px",
+          marginBottom: "24px",
         }}>
           Пришлём коммерческое предложение с каталогом и ценами. Свяжемся в течение рабочего дня.
         </p>
+        <div style={{ display: "flex", gap: "24px", marginBottom: "40px", flexWrap: "wrap" }}>
+          <a
+            href="https://t.me/+79953760666"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "0.78rem",
+              letterSpacing: "0.1em",
+              color: "var(--gold)",
+              textDecoration: "none",
+            }}
+          >
+            <span style={{ fontSize: "1rem" }}>✈</span>
+            Telegram
+          </a>
+          <a
+            href="mailto:info@belleeclat.ru"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "0.78rem",
+              letterSpacing: "0.1em",
+              color: "var(--text-muted)",
+              textDecoration: "none",
+            }}
+          >
+            <span style={{ fontSize: "1rem" }}>✉</span>
+            info@belleeclat.ru
+          </a>
+        </div>
         <OptForm />
       </section>
 
@@ -505,6 +541,9 @@ export default function OptPage() {
           ООО «МИР МЛМ» · ИНН 7725495829 · Ростов-на-Дону ·{" "}
           <a href="mailto:info@belleeclat.ru" style={{ color: "var(--gold)", textDecoration: "none" }}>
             info@belleeclat.ru
+          </a>{" "}·{" "}
+          <a href="https://t.me/+79953760666" target="_blank" rel="noopener noreferrer" style={{ color: "var(--gold)", textDecoration: "none" }}>
+            Telegram
           </a>
         </div>
       </footer>
