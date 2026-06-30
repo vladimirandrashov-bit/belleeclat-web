@@ -292,7 +292,7 @@ export default function ContactSection() {
           {[
             { label: "+7 995 376-06-66", href: "tel:+79953760666", icon: "◈" },
             { label: "info@belleeclat.ru", href: "mailto:info@belleeclat.ru", icon: "◇" },
-            { label: "Telegram", href: "https://t.me/belleeclat", icon: "✉" },
+            { label: "Telegram", href: "https://t.me/belleeclat_official", icon: "✉" },
             { label: "Instagram", href: "https://instagram.com/belleeclat", icon: "◎" },
             { label: "WhatsApp", href: "https://wa.me/79953760666", icon: "◈" },
           ].map(({ label, href, icon }) => (
