@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const VIEWS = [
   "/parts/view-front.png",
@@ -11,6 +11,11 @@ const VIEWS = [
   "/parts/view-45.png",
 ];
 
+// Длительность цикла и доля одного кадра
+const CYCLE = 4; // секунд
+const FRAME = 100 / VIEWS.length; // 16.67%
+const FADE  = FRAME * 0.22;       // ~3.67% — время crossfade
+
 const AROMAS = [
   { num: "№ 101", name: "Cherry Desire",  hint: "Тёмная сторона сладкого",    notes: "вишня · амбра · ваниль"    },
   { num: "№ 112", name: "Sweet Tobacco",  hint: "Запрещённое удовольствие",   notes: "табак · ваниль · сандал"   },
@@ -18,31 +23,42 @@ const AROMAS = [
   { num: "№ 4",   name: "Sexy Magic",     hint: "Необъяснимое притяжение",    notes: "роза · мускус · кедр"      },
 ];
 
+const bottleKeyframes = `
+@keyframes bottle-frame {
+  0%                      { opacity: 0; }
+  ${FADE.toFixed(2)}%     { opacity: 1; }
+  ${(FRAME - FADE).toFixed(2)}% { opacity: 1; }
+  ${FRAME.toFixed(2)}%    { opacity: 0; }
+  100%                    { opacity: 0; }
+}
+`;
+
 function SpinningBottle() {
-  const [idx, setIdx] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setIdx((i) => (i + 1) % VIEWS.length), 500);
-    return () => clearInterval(t);
-  }, []);
-
   return (
-    <div style={{ position: "relative", width: "90px", height: "130px", margin: "0 auto 24px" }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={VIEWS[idx]}
-        alt=""
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          filter: "blur(4px) brightness(0.45) sepia(0.3)",
-          transition: "opacity 0.3s",
-        }}
-      />
-      {/* Оверлей с замком */}
-      <div style={{
-        position: "absolute",
+    <>
+      <style>{bottleKeyframes}</style>
+      <div style={{ position: "relative", width: "90px", height: "130px", margin: "0 auto 24px" }}>
+        {VIEWS.map((src, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={src + i}
+            src={src}
+            alt=""
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              filter: "blur(4px) brightness(0.45) sepia(0.3)",
+              opacity: 0,
+              animation: `bottle-frame ${CYCLE}s ${(i * CYCLE / VIEWS.length).toFixed(2)}s infinite`,
+            }}
+          />
+        ))}
+        {/* Оверлей с замком */}
+        <div style={{
+          position: "absolute",
         inset: 0,
         display: "flex",
         alignItems: "center",
@@ -51,8 +67,9 @@ function SpinningBottle() {
         fontSize: "1.3rem",
       }}>
         ◈
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
