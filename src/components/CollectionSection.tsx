@@ -82,7 +82,7 @@ const fragrances = [
     price: "3 500 ₽",
     volume: "30 мл",
     gradient: "radial-gradient(ellipse at 40% 40%, rgba(80,40,100,0.18) 0%, transparent 70%)",
-    bottle: "/bottle-108.jpg",
+    bottle: "/bottle-108-new.png",
   },
 ];
 

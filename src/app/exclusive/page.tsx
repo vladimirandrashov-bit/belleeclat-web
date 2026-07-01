@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import SpinningBottle from "@/components/SpinningBottle";
 
 const AROMAS = [
-  { num: "№ 101", name: "Cherry Desire", hint: "Тёмная сторона сладкого",  notes: "вишня · амбра · ваниль"   },
-  { num: "№ 112", name: "Sweet Tobacco", hint: "Запрещённое удовольствие", notes: "табак · ваниль · сандал"  },
-  { num: "№ 13",  name: "Bright Devila", hint: "Яркость с характером",     notes: "цитрус · жасмин · пачули" },
-  { num: "№ 4",   name: "Sexy Magic",    hint: "Необъяснимое притяжение",  notes: "роза · мускус · кедр"     },
+  { num: "№ 101", name: "Cherry Desire", hint: "Тёмная сторона сладкого",  notes: "вишня · амбра · ваниль",   bottle: "/exclusive/cherry-desire.png" },
+  { num: "№ 112", name: "Sweet Tobacco", hint: "Запрещённое удовольствие", notes: "табак · ваниль · сандал",  bottle: "/exclusive/sweet-tobacco.png" },
+  { num: "№ 13",  name: "Bright Devila", hint: "Яркость с характером",     notes: "цитрус · жасмин · пачули", bottle: "/exclusive/bright-devila.png" },
+  { num: "№ 4",   name: "Sexy Magic",    hint: "Необъяснимое притяжение",  notes: "роза · мускус · кедр",     bottle: "/exclusive/sexy-magic.png"    },
 ];
 
 export default function ExclusivePage() {
@@ -125,9 +124,19 @@ export default function ExclusivePage() {
               borderLeft: "1px solid rgba(201,168,76,0.2)",
             }} />
 
-            <div style={{ margin: "0 auto 24px", width: "fit-content" }}>
-              <SpinningBottle overlay={<span style={{ color: "rgba(201,168,76,0.4)", fontSize: "1.3rem" }}>◈</span>} />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={a.bottle}
+              alt={a.name}
+              style={{
+                display: "block",
+                margin: "0 auto 24px",
+                width: "110px",
+                height: "150px",
+                objectFit: "contain",
+                filter: "blur(4px) brightness(0.5)",
+              }}
+            />
 
             <div style={{
               fontFamily: "var(--font-body), sans-serif",
