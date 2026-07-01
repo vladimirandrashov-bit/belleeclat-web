@@ -2,9 +2,26 @@ import type { Metadata } from "next";
 import OptForm from "./OptForm";
 
 export const metadata: Metadata = {
-  title: "Оптовое партнёрство — BelleEclat",
+  title: "Парфюм оптом от производителя | BelleEclat — маржа 57%, от 30 шт",
   description:
-    "Станьте партнёром BelleEclat. Маржинальность 57% — 2 000 ₽ с каждого флакона. Extrait de Parfum на концентратах Jean Niel (Франция). От 30 штук.",
+    "Оптовые поставки нишевой парфюмерии BelleEclat. Extrait de Parfum на французских концентратах Jean Niel. От 30 шт / 1500₽, от 100 шт / 1200₽. Маржинальность 57% — 2000₽ с флакона. Отправка по России.",
+  keywords: [
+    "парфюм оптом",
+    "духи оптом от производителя",
+    "нишевая парфюмерия оптом",
+    "парфюмерия оптом",
+    "extrait de parfum оптом",
+    "авторский парфюм оптом",
+    "оптовый поставщик парфюмерии",
+    "духи оптом Ростов",
+  ],
+  openGraph: {
+    title: "Парфюм оптом от производителя — BelleEclat",
+    description: "Нишевая парфюмерия оптом. Маржа 57% — 2000₽ с флакона. От 30 шт. Отправка по России.",
+    locale: "ru_RU",
+    type: "website",
+    url: "https://belleeclat.ru/opt",
+  },
 };
 
 const AROMAS = [

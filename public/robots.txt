@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /exclusive
+Disallow: /api/
+
+Sitemap: https://belleeclat.ru/sitemap.xml

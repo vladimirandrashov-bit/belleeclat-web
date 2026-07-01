@@ -23,13 +23,26 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "BelleEclat — Парфюмерный дом",
+  title: "BelleEclat — Нишевая парфюмерия оптом от производителя",
   description:
-    "Авторская парфюмерия BelleEclat. Создаём ароматы, которые остаются в памяти.",
+    "BelleEclat — производитель нишевой парфюмерии. Extrait de Parfum на французских концентратах Jean Niel. Оптовые поставки по России от 30 штук. Маржинальность партнёров 57%.",
+  keywords: [
+    "парфюм оптом",
+    "духи оптом от производителя",
+    "нишевая парфюмерия",
+    "BelleEclat",
+    "extrait de parfum",
+    "парфюмерия оптом",
+  ],
   openGraph: {
-    title: "BelleEclat",
-    description: "Авторская парфюмерия",
+    title: "BelleEclat — Нишевая парфюмерия оптом",
+    description: "Производитель нишевой парфюмерии. Оптовые поставки по России от 30 шт. Маржа партнёров 57%.",
     locale: "ru_RU",
+    type: "website",
+    url: "https://belleeclat.ru",
+  },
+  alternates: {
+    canonical: "https://belleeclat.ru",
   },
 };
 
