@@ -1,15 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-
-const VIEWS = [
-  "/parts/view-front.png",
-  "/parts/view-45.png",
-  "/parts/view-side.png",
-  "/parts/view-back.png",
-  "/parts/view-side.png",
-  "/parts/view-45.png",
-];
+import { useState } from "react";
+import SpinningBottle from "@/components/SpinningBottle";
 
 const AROMAS = [
   { num: "№ 101", name: "Cherry Desire", hint: "Тёмная сторона сладкого",  notes: "вишня · амбра · ваниль"   },
@@ -17,60 +9,6 @@ const AROMAS = [
   { num: "№ 13",  name: "Bright Devila", hint: "Яркость с характером",     notes: "цитрус · жасмин · пачули" },
   { num: "№ 4",   name: "Sexy Magic",    hint: "Необъяснимое притяжение",  notes: "роза · мускус · кедр"     },
 ];
-
-// Двойной буфер: всегда только 2 изображения в DOM,
-// плавный crossfade через CSS transition.
-function SpinningBottle() {
-  const [srcs, setSrcs]   = useState([VIEWS[0], VIEWS[1]]);
-  const [front, setFront] = useState(0); // 0 или 1 — какой img сверху
-  const cursor = useRef(0);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      cursor.current = (cursor.current + 1) % VIEWS.length;
-      const nextSrc = VIEWS[cursor.current];
-      setFront((f) => {
-        const back = 1 - f;
-        setSrcs((prev) => {
-          const copy = [...prev] as [string, string];
-          copy[back] = nextSrc;
-          return copy;
-        });
-        return back;
-      });
-    }, 1400);
-    return () => clearInterval(id);
-  }, []);
-
-  const base: React.CSSProperties = {
-    position: "absolute",
-    inset: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: "contain",
-    filter: "blur(5px) brightness(0.38) sepia(0.25)",
-    transition: "opacity 1s ease-in-out",
-  };
-
-  return (
-    <div style={{ position: "relative", width: "90px", height: "130px", margin: "0 auto 24px" }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={srcs[0]} alt="" style={{ ...base, opacity: front === 0 ? 1 : 0 }} />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={srcs[1]} alt="" style={{ ...base, opacity: front === 1 ? 1 : 0 }} />
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "rgba(201,168,76,0.4)",
-        fontSize: "1.3rem",
-        pointerEvents: "none",
-      }}>◈</div>
-    </div>
-  );
-}
 
 export default function ExclusivePage() {
   const [btnHover, setBtnHover] = useState(false);
@@ -187,7 +125,9 @@ export default function ExclusivePage() {
               borderLeft: "1px solid rgba(201,168,76,0.2)",
             }} />
 
-            <SpinningBottle />
+            <div style={{ margin: "0 auto 24px", width: "fit-content" }}>
+              <SpinningBottle overlay={<span style={{ color: "rgba(201,168,76,0.4)", fontSize: "1.3rem" }}>◈</span>} />
+            </div>
 
             <div style={{
               fontFamily: "var(--font-body), sans-serif",
