@@ -91,6 +91,22 @@ export default function Navbar() {
               </a>
             ))}
             <a
+              href="/exclusive"
+              style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "0.68rem",
+                letterSpacing: "0.22em",
+                color: "var(--text-muted)",
+                textDecoration: "none",
+                textTransform: "uppercase",
+                transition: "color 0.3s",
+              }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--gold)")}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--text-muted)")}
+            >
+              Эксклюзив
+            </a>
+            <a
               href="/opt"
               style={{
                 fontFamily: "var(--font-body), sans-serif",
@@ -172,7 +188,7 @@ export default function Navbar() {
             backdropFilter: "blur(16px)",
             borderBottom: "1px solid rgba(201,168,76,0.12)",
             overflow: "hidden",
-            maxHeight: menuOpen ? "240px" : "0",
+            maxHeight: menuOpen ? "300px" : "0",
             transition: "max-height 0.35s ease",
           }}
         >
@@ -205,6 +221,24 @@ export default function Navbar() {
               {label}
             </a>
           ))}
+          <a
+            href="/exclusive"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              display: "block",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "0.8rem",
+              letterSpacing: "0.28em",
+              color: "var(--text-muted)",
+              textDecoration: "none",
+              textTransform: "uppercase",
+              padding: "18px 24px",
+              borderBottom: "1px solid rgba(201,168,76,0.08)",
+              WebkitTapHighlightColor: "transparent",
+            }}
+          >
+            Эксклюзив
+          </a>
           <a
             href="/opt"
             onClick={() => setMenuOpen(false)}
