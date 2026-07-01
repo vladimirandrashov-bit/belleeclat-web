@@ -44,6 +44,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://belleeclat.ru",
   },
+  verification: {
+    yandex: "a50894e1649bc108",
+  },
 };
 
 export default function RootLayout({
