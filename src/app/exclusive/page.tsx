@@ -102,93 +102,80 @@ export default function ExclusivePage() {
 
       {/* КАРТОЧКИ */}
       <section style={{
-        maxWidth: "1000px",
+        maxWidth: "1200px",
         margin: "0 auto",
-        padding: "0 24px 80px",
+        padding: "0 48px 80px",
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
-        gap: "20px",
+        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+        gap: "2px",
       }}>
         {AROMAS.map((a) => (
           <div key={a.num} style={{
             border: "1px solid rgba(201,168,76,0.15)",
-            background: "rgba(201,168,76,0.03)",
-            padding: "32px 24px 28px",
+            background: "#0e0e0e",
+            padding: "48px 36px",
             position: "relative",
             overflow: "hidden",
           }}>
+            {/* Фото флакона */}
             <div style={{
-              position: "absolute", top: 0, right: 0,
-              width: "40px", height: "40px",
-              borderBottom: "1px solid rgba(201,168,76,0.2)",
-              borderLeft: "1px solid rgba(201,168,76,0.2)",
-            }} />
+              height: "340px",
+              margin: "0 auto 32px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={a.bottle}
+                alt={a.name}
+                style={{
+                  height: "100%",
+                  width: "auto",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
 
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={a.bottle}
-              alt={a.name}
-              style={{
-                display: "block",
-                margin: "0 auto 24px",
-                width: "110px",
-                height: "150px",
-                objectFit: "contain",
-                filter: "blur(4px) brightness(0.5)",
-              }}
-            />
+            <div style={{ textAlign: "center" }}>
+              <div style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "0.6rem",
+                letterSpacing: "0.3em",
+                color: "var(--gold)",
+                textTransform: "uppercase",
+                marginBottom: "12px",
+                opacity: 0.8,
+              }}>{a.notes}</div>
 
-            <div style={{
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: "0.55rem",
-              letterSpacing: "0.35em",
-              color: "rgba(201,168,76,0.5)",
-              textTransform: "uppercase",
-              marginBottom: "8px",
-              textAlign: "center",
-            }}>{a.num}</div>
+              <h3 style={{
+                fontFamily: "var(--font-display), serif",
+                fontSize: "1.6rem",
+                fontWeight: 300,
+                letterSpacing: "0.08em",
+                color: "var(--text)",
+                marginBottom: "16px",
+              }}>{a.name}</h3>
 
-            <h3 style={{
-              fontFamily: "var(--font-display), serif",
-              fontSize: "1.35rem",
-              fontWeight: 400,
-              color: "var(--text)",
-              textAlign: "center",
-              marginBottom: "10px",
-              letterSpacing: "0.03em",
-            }}>{a.name}</h3>
+              <p style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "0.82rem",
+                lineHeight: 1.7,
+                color: "var(--text-muted)",
+                marginBottom: "32px",
+                fontStyle: "italic",
+              }}>{a.hint}</p>
 
-            <p style={{
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: "0.7rem",
-              color: "var(--gold)",
-              textAlign: "center",
-              marginBottom: "18px",
-              fontStyle: "italic",
-              letterSpacing: "0.05em",
-            }}>{a.hint}</p>
-
-            <div style={{
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: "0.65rem",
-              color: "var(--text-muted)",
-              textAlign: "center",
-              letterSpacing: "0.08em",
-              filter: "blur(3.5px)",
-              userSelect: "none",
-            }}>{a.notes}</div>
-
-            <div style={{
-              marginTop: "22px",
-              borderTop: "1px solid rgba(201,168,76,0.1)",
-              paddingTop: "16px",
-              textAlign: "center",
-              fontFamily: "var(--font-body), sans-serif",
-              fontSize: "0.55rem",
-              letterSpacing: "0.3em",
-              color: "rgba(201,168,76,0.3)",
-              textTransform: "uppercase",
-            }}>Недоступно</div>
+              <div style={{
+                borderTop: "1px solid rgba(201,168,76,0.12)",
+                paddingTop: "24px",
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "0.55rem",
+                letterSpacing: "0.3em",
+                color: "rgba(201,168,76,0.35)",
+                textTransform: "uppercase",
+              }}>{a.num} · Закрытая коллекция</div>
+            </div>
           </div>
         ))}
       </section>
