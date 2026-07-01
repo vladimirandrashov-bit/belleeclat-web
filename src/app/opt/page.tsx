@@ -116,7 +116,7 @@ export default function OptPage() {
               textTransform: "uppercase",
               opacity: 0.8,
             }}>
-              Оптовое партнёрство · 2026
+              Парфюм оптом от производителя · BelleEclat
             </span>
           </div>
 
@@ -140,7 +140,8 @@ export default function OptPage() {
             maxWidth: "560px",
             marginBottom: "40px",
           }}>
-            Авторская парфюмерия BelleEclat на французских концентратах Jean Niel.
+            Нишевая парфюмерия и духи оптом от производителя BelleEclat.
+            Extrait de Parfum на французских концентратах Jean Niel — оптовые поставки по России от 30 штук.
             Маржинальность 57%. Никаких конкурентов на маркетплейсах — ваша наценка защищена договором.
           </p>
 
@@ -541,6 +542,24 @@ export default function OptPage() {
           </a>
         </div>
         <OptForm />
+      </section>
+
+      {/* SEO-текст */}
+      <section style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px 60px" }}>
+        <p style={{
+          fontFamily: "var(--font-body), sans-serif",
+          fontSize: "0.8rem",
+          lineHeight: 1.9,
+          color: "rgba(245,240,232,0.25)",
+          textAlign: "center",
+        }}>
+          BelleEclat — российский производитель нишевой парфюмерии. Предлагаем духи оптом от производителя
+          с доставкой по всей России. Закупайте парфюм оптом от 30 штук по цене 1500 ₽/шт.
+          Вся продукция — Extrait de Parfum на концентратах Jean Niel (Грас, Франция).
+          Оптовые поставки авторского парфюма для магазинов, салонов красоты, интернет-магазинов и частных предпринимателей.
+          Нишевая парфюмерия оптом без выхода на маркетплейсы — ваша розничная наценка защищена.
+          Оптовый поставщик парфюмерии BelleEclat работает по всей России.
+        </p>
       </section>
 
       {/* ФУТЕР */}
