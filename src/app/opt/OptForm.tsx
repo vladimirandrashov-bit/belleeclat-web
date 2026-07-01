@@ -7,6 +7,7 @@ type State = "idle" | "loading" | "done" | "error";
 export default function OptForm() {
   const [state, setState] = useState<State>("idle");
   const [form, setForm] = useState({ name: "", phone: "", city: "", comment: "" });
+  const [agreed, setAgreed] = useState(false);
 
   const field = (key: keyof typeof form) => ({
     value: form[key],
@@ -119,6 +120,22 @@ export default function OptForm() {
         />
       </div>
 
+      <label style={{ display: "flex", alignItems: "flex-start", gap: "12px", cursor: "pointer" }}>
+        <input
+          type="checkbox"
+          required
+          checked={agreed}
+          onChange={(e) => setAgreed(e.target.checked)}
+          style={{ marginTop: "3px", accentColor: "var(--gold)", flexShrink: 0 }}
+        />
+        <span style={{ fontFamily: "var(--font-body), sans-serif", fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
+          Я согласен(а) на обработку персональных данных в соответствии с{" "}
+          <a href="/privacy" target="_blank" style={{ color: "var(--gold)", textDecoration: "none" }}>
+            политикой конфиденциальности
+          </a>
+        </span>
+      </label>
+
       {state === "error" && (
         <p style={{ fontFamily: "var(--font-body), sans-serif", fontSize: "0.85rem", color: "#e07070" }}>
           Не удалось отправить. Напишите напрямую: info@belleeclat.ru
@@ -127,7 +144,7 @@ export default function OptForm() {
 
       <button
         type="submit"
-        disabled={state === "loading"}
+        disabled={state === "loading" || !agreed}
         style={{
           padding: "16px 48px",
           border: "1px solid var(--gold)",
