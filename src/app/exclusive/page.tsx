@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const AROMAS = [
   { num: "№ 101", name: "Cherry Desire", hint: "Тёмная сторона сладкого",  notes: "вишня · амбра · ваниль",   bottle: "/exclusive/cherry-desire.png" },
@@ -11,6 +12,7 @@ const AROMAS = [
 
 export default function ExclusivePage() {
   const [btnHover, setBtnHover] = useState(false);
+  const isMobile = useIsMobile();
 
   return (
     <main style={{ background: "var(--bg)", minHeight: "100vh", color: "var(--text)", overflow: "hidden" }}>
@@ -104,22 +106,22 @@ export default function ExclusivePage() {
       <section style={{
         maxWidth: "1200px",
         margin: "0 auto",
-        padding: "0 48px 80px",
+        padding: isMobile ? "0 0 60px" : "0 48px 80px",
         display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
         gap: "2px",
       }}>
         {AROMAS.map((a) => (
           <div key={a.num} style={{
             border: "1px solid rgba(201,168,76,0.15)",
             background: "#0e0e0e",
-            padding: "48px 36px",
+            padding: isMobile ? "36px 24px" : "48px 36px",
             position: "relative",
             overflow: "hidden",
           }}>
             {/* Фото флакона */}
             <div style={{
-              height: "340px",
+              height: isMobile ? "260px" : "340px",
               margin: "0 auto 32px",
               display: "flex",
               alignItems: "center",
